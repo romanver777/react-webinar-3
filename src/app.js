@@ -1,40 +1,56 @@
-import React, {useCallback} from 'react';
+import React, { useState, useCallback } from "react";
+import { createPortal } from "react-dom";
+
 import List from "./components/list";
 import Controls from "./components/controls";
 import Head from "./components/head";
 import PageLayout from "./components/page-layout";
+import Cart from "./components/cart";
 
 /**
  * Приложение
  * @param store {Store} Хранилище состояния приложения
  * @returns {React.ReactElement}
  */
-function App({store}) {
+function App({ store }) {
+  const [showModal, setShowModal] = useState(false);
 
   const list = store.getState().list;
+  const cart = store.getState().cart;
 
   const callbacks = {
-    onDeleteItem: useCallback((code) => {
-      store.deleteItem(code);
-    }, [store]),
+    onToggleCart: useCallback(() => {
+      setShowModal(!showModal);
+    }, [showModal]),
 
-    onSelectItem: useCallback((code) => {
-      store.selectItem(code);
-    }, [store]),
+    onAddToCart: useCallback(
+      (item) => {
+        store.addToCart(item);
+      }, [store]),
 
-    onAddItem: useCallback(() => {
-      store.addItem();
-    }, [store])
-  }
+    onRemoveFromCart: useCallback(
+      (item) => {
+        store.removeFromCart(item);
+      }, [store]),
+  };
 
   return (
-    <PageLayout>
-      <Head title='Приложение на чистом JS'/>
-      <Controls onAdd={callbacks.onAddItem}/>
-      <List list={list}
-            onDeleteItem={callbacks.onDeleteItem}
-            onSelectItem={callbacks.onSelectItem}/>
-    </PageLayout>
+    <>
+      <PageLayout>
+        <Head title="Магазин" />
+        <Controls cart={cart} onToggleCart={callbacks.onToggleCart} />
+        <List list={list} onAction={callbacks.onAddToCart} />
+      </PageLayout>
+      {showModal &&
+        createPortal(
+          <Cart
+            cart={cart}
+            onToggleCart={callbacks.onToggleCart}
+            onRemoveFromCart={callbacks.onRemoveFromCart}
+          />,
+          document.body
+        )}
+    </>
   );
 }
 

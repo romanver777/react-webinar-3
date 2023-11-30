@@ -3,9 +3,9 @@ import PropTypes from "prop-types";
 import {cn as bem} from '@bem-react/classname';
 import './style.css';
 
-function PageLayout({children}) {
+function PageLayout({page, children}) {
 
-  const cn = bem('PageLayout');
+  const cn = bem(page || 'PageLayout');
 
   return (
     <div className={cn()}>
@@ -17,6 +17,7 @@ function PageLayout({children}) {
 }
 
 PageLayout.propTypes = {
+  page: PropTypes.string,
   children: PropTypes.node
 }
 

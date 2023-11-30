@@ -83,6 +83,40 @@ class Store {
       })
     })
   }
+  /**
+   * Добавление записи в корзину
+   * @param item
+   */
+  addToCart(item) {
+    const isIncludeItem = this.state.cart.some(it => it.code === item.code);
+
+    const newItem = {...item, quantity: 1};
+
+    this.setState({
+      ...this.state,
+      cart: isIncludeItem ? this.state.cart.map(cartItem => {
+        if(cartItem.code === item.code){
+          return {
+            ...cartItem,
+            quantity: cartItem.quantity + 1
+          };
+        }
+        return cartItem;
+      }
+      ) : [...this.state.cart, newItem]
+    });
+  }
+  /**
+   * Удаление записи из корзины
+   * @param item
+   */
+  removeFromCart(item) {
+
+    this.setState({
+      ...this.state,
+      cart: this.state.cart.filter(it => it.code !== item.code)
+    });
+  }
 }
 
 export default Store;
