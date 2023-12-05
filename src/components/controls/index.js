@@ -2,7 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import { cn as bem } from "@bem-react/classname";
 
-import { plural, getTotalPrice } from "../../utils";
+import { plural } from "../../utils";
 import Button from "../button";
 import "./style.css";
 
@@ -14,12 +14,12 @@ function Controls(props) {
       <div className={cn("cart")}>
         В корзине:{" "}
         <b>
-          {!!props.cart.length
-            ? `${props.cart.length} ${plural(props.cart.length, {
+          {!!props.cartLength
+            ? `${props.cartLength} ${plural(props.cartLength, {
                 one: "товар",
                 few: "товара",
                 many: "товаров",
-              })} / ${getTotalPrice(props.cart)} ₽`
+              })} / ${props.totalPrice.toLocaleString() + ' ₽'}`
             : "пусто"}
         </b>
       </div>
@@ -31,7 +31,9 @@ function Controls(props) {
 }
 
 Controls.propTypes = {
-  onToggleCart: PropTypes.func,
+  cartLength: PropTypes.number.isRequired,
+  totalPrice: PropTypes.number.isRequired,
+  onToggleCart: PropTypes.func.isRequired,
 };
 
 Controls.defaultProps = {

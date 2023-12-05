@@ -5,6 +5,7 @@ import List from "./components/list";
 import Controls from "./components/controls";
 import Head from "./components/head";
 import PageLayout from "./components/page-layout";
+import ModalLayout from "./components/modal-layout";
 import Cart from "./components/cart";
 
 /**
@@ -17,6 +18,8 @@ function App({ store }) {
 
   const list = store.getState().list;
   const cart = store.getState().cart;
+  const cartLength = store.getState().cartLength;
+  const totalPrice = store.getState().totalPrice;
 
   const callbacks = {
     onToggleCart: useCallback(() => {
@@ -24,30 +27,42 @@ function App({ store }) {
     }, [showModal]),
 
     onAddToCart: useCallback(
-      (item) => {
-        store.addToCart(item);
-      }, [store]),
+      (code) => {
+        store.addToCart(code);
+      },
+      [store]
+    ),
 
     onRemoveFromCart: useCallback(
-      (item) => {
-        store.removeFromCart(item);
-      }, [store]),
+      (code) => {
+        store.removeFromCart(code);
+      },
+      [store]
+    ),
   };
 
   return (
     <>
       <PageLayout>
         <Head title="Магазин" />
-        <Controls cart={cart} onToggleCart={callbacks.onToggleCart} />
+        <Controls
+          cartLength={cartLength}
+          totalPrice={totalPrice}
+          onToggleCart={callbacks.onToggleCart}
+        />
         <List list={list} onAction={callbacks.onAddToCart} />
       </PageLayout>
       {showModal &&
         createPortal(
-          <Cart
-            cart={cart}
-            onToggleCart={callbacks.onToggleCart}
-            onRemoveFromCart={callbacks.onRemoveFromCart}
-          />,
+          <ModalLayout>
+            <Cart
+              cart={cart}
+              cartLength={cartLength}
+              totalPrice={totalPrice}
+              onToggleCart={callbacks.onToggleCart}
+              onRemoveFromCart={callbacks.onRemoveFromCart}
+            />
+          </ModalLayout>,
           document.body
         )}
     </>

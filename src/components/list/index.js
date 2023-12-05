@@ -3,21 +3,25 @@ import PropTypes from "prop-types";
 import { cn as bem } from "@bem-react/classname";
 
 import Item from "../item";
+import CartItem from "../cart-item";
 import "./style.css";
 
 function List(props) {
   const cn = bem("List");
 
-  if (!props.list.length) return <div className={cn('message')}>Товаров нет</div>;
+  if (!props.list.length)
+    return <div className={cn("message")}>Товаров нет</div>;
 
   return (
     <div className={cn()}>
       {props.list.map((item) => (
-        <div key={item.code} className={cn('item')}>
-          <Item 
-            item={item}
-            onAction={props.onAction}
-          />
+        <div key={item.code} className={cn("item")}>
+          {props.type == "main" && (
+            <Item item={item} onAction={props.onAction} />
+          )}
+          {props.type == "cart" && (
+            <CartItem item={item} onAction={props.onAction} />
+          )}
         </div>
       ))}
     </div>
@@ -30,11 +34,13 @@ List.propTypes = {
       code: PropTypes.number,
     })
   ).isRequired,
-  onAction: PropTypes.func
+  type: PropTypes.string,
+  onAction: PropTypes.func,
 };
 
 List.defaultProps = {
-  onAction: () => {}
+  type: "main",
+  onAction: () => {},
 };
 
 export default React.memo(List);

@@ -52,11 +52,3 @@ export function generateCode2() {
     ? ++generateCode2.value
     : (generateCode2.value = 1);
 }
-
-/**
- * Подсчет общей стоимости
- * @returns {Number}
- */
-export function getTotalPrice(cart) {
-  return cart.reduce((a, item) => a + item.price * item.quantity, 0);
-}

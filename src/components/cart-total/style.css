@@ -1,0 +1,17 @@
+.CartTotal {
+  padding: 21px 120px 19px 0;
+  display: flex;
+  justify-content: flex-end;
+  color: #000;
+  text-align: right;
+  font-family: Arial;
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+}
+.CartTotal-price {
+  min-width: 100px;
+  padding-left: 5px;
+  box-sizing: border-box;
+}

@@ -2,11 +2,10 @@ import React from "react";
 import PropTypes from "prop-types";
 import { cn as bem } from "@bem-react/classname";
 
-import { getTotalPrice } from "../../utils";
-import PageLayout from "../page-layout";
 import Head from "../head";
 import List from "../list";
 import Button from "../button";
+import CartTotal from "../cart-total";
 import "./style.css";
 
 function Cart(props) {
@@ -19,24 +18,17 @@ function Cart(props) {
   };
 
   return (
-    <PageLayout page="Cart">
+    <div className={cn()}>
       <Head title="Корзина">
         <div className={cn("actions")}>
           <Button text="Закрыть" onAction={callbacks.onClick} />
         </div>
       </Head>
       <div className={cn("products")}>
-        <List list={props.cart} onAction={props.onRemoveFromCart} />
-        {!!props.cart.length && (
-          <div className={cn("total")}>
-            <div className={cn("totalTitle")}>Итого</div>
-            <div className={cn("totalPrice")}>
-              {getTotalPrice(props.cart)} ₽
-            </div>
-          </div>
-        )}
+        <List type="cart" list={props.cart} onAction={props.onRemoveFromCart} />
+        {!!props.cartLength && <CartTotal totalPrice={props.totalPrice} />}
       </div>
-    </PageLayout>
+    </div>
   );
 }
 
@@ -49,6 +41,8 @@ Cart.propTypes = {
       quantity: PropTypes.number,
     })
   ).isRequired,
+  cartLength: PropTypes.number,
+  totalPrice: PropTypes.number,
   onToggleCart: PropTypes.func,
   onRemoveFromCart: PropTypes.func,
 };

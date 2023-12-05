@@ -5,7 +5,7 @@ import { cn as bem } from "@bem-react/classname";
 import Button from "../button";
 import "./style.css";
 
-function Item(props) {
+function CartItem(props) {
   const cn = bem("Item");
 
   const callbacks = {
@@ -19,9 +19,10 @@ function Item(props) {
       <div className={cn("code")}>{props.item.code}</div>
       <div className={cn("title")}>{props.item.title}</div>
       <div className={cn("price")}>{props.item.price.toLocaleString()} ₽</div>
+      <div className={cn("quantity")}>{props.item.quantity} шт.</div>
       <div className={cn("actions")}>
         <Button
-          text="Добавить"
+          text="Удалить"
           onAction={callbacks.onClick}
         />
       </div>
@@ -29,17 +30,18 @@ function Item(props) {
   );
 }
 
-Item.propTypes = {
+CartItem.propTypes = {
   item: PropTypes.shape({
     code: PropTypes.number,
     title: PropTypes.string,
     price: PropTypes.number,
+    quantity: PropTypes.number,
   }).isRequired,
   onAction: PropTypes.func,
 };
 
-Item.defaultProps = {
+CartItem.defaultProps = {
   onAction: () => {},
 };
 
-export default React.memo(Item);
+export default React.memo(CartItem);
