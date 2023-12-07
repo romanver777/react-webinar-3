@@ -1,0 +1,20 @@
+.ArticleInfo {
+  padding: 20px 40px;
+  color: #000;
+  font-family: Arial;
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  justify-content: start;
+}
+.ArticleInfo-price {
+  font-size: 24px;
+  font-weight: 700;
+}
+.ArticleInfo-btn {
+  width: fit-content;
+}

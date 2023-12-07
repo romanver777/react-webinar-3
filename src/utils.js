@@ -33,3 +33,40 @@ export function codeGenerator(start = 0) {
 export function numberFormat(value, locale = 'ru-RU', options = {}) {
   return new Intl.NumberFormat(locale, options).format(value);
 }
+
+/**
+ * Массив страниц пагинации
+ * @param active {Number}
+ * @param total {Number}
+ * @returns [Number, String]
+ */
+export function getPaginationNumbers(active, total){
+  let numbers = [];
+  const dots = "...";
+
+  if (active < 3) {
+    for (let i = 1; i <= 3; i++) {
+      numbers.push(i);
+    }
+    numbers.push(dots);
+    numbers.push(total);
+  }
+  if(active > total - 2 ){
+    numbers.push(1);
+    numbers.push(dots);
+    for (let i = total - 2; i <= total; i++) {
+        numbers.push(i);
+      }
+  }
+  if(active >= 3 && active <= total - 2){
+    numbers.push(1);
+    if(active !== 3) numbers.push(dots);
+    numbers.push(active - 1);
+    numbers.push(active);
+    numbers.push(active + 1);
+    if(active !== total - 2) numbers.push(dots);
+    numbers.push(total);
+  }
+
+  return numbers;
+}

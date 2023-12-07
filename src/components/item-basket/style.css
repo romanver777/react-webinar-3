@@ -1,18 +1,27 @@
 /* Пункт списка */
 .ItemBasket {
   display: flex;
-  justify-content: flex-start;
+  justify-content: space-between;
+  align-items: center;
   transition: background-color 1s;
-  padding-left: 10px
+  padding-left: 20px;
 }
 
 .ItemBasket-code {
   padding: 20px 10px 20px 20px;
 }
 
-.ItemBasket-title {
-  width: 100%;
-  padding: 20px 10px;
+.ItemBasket-link {
+  color: #000;
+  font-family: Arial;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  text-decoration: none;
+}
+.ItemBasket-link:hover {
+  text-decoration-line: underline;
 }
 
 .ItemBasket-right {
