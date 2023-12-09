@@ -1,0 +1,14 @@
+.Lang {
+  padding: 20px;
+  display: flex;
+  align-items: center;
+}
+.Lang-item {
+  cursor: pointer;
+}
+.Lang-item_active {
+  color: #0087e9;
+}
+.Lang-item:hover {
+  color: #0087e9;
+}

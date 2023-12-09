@@ -7,6 +7,7 @@ import BasketTool from "../../components/basket-tool";
 import ArticleInfo from '../../components/article-info';
 import useStore from "../../store/use-store";
 import useSelector from "../../store/use-selector";
+import { translate } from '../../utils';
 
 function Article() {
 
@@ -20,7 +21,8 @@ function Article() {
   const select = useSelector(state => ({
     article: state.article.article,
     amount: state.basket.amount,
-    sum: state.basket.sum
+    sum: state.basket.sum,
+    language: state.language.name,
   }));
 
   const callbacks = {
@@ -30,10 +32,10 @@ function Article() {
     openModalBasket: useCallback(() => store.actions.modals.open('basket'), [store]),
   }
 
-  if(!select.article || select.article._id != id) return <div style={{"textAlign": "center", "color": "#fff"}}>Загружаем..</div>
+  if(!select.article || select.article._id != id) return <div style={{"textAlign": "center", "color": "#fff"}}>{translate("Загружаем", select.language)}..</div>
 
   return (
-    <PageLayout>
+    <PageLayout lang={select.language}>
       <Head title={select.article.title}/>
       <BasketTool onOpen={callbacks.openModalBasket} amount={select.amount}
                   sum={select.sum}/>

@@ -2,7 +2,7 @@ import {memo, useState} from "react";
 import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
 import {cn as bem} from '@bem-react/classname';
-import {numberFormat} from "../../utils";
+import {numberFormat, translate} from "../../utils";
 import './style.css';
 
 function Item(props) {
@@ -22,14 +22,15 @@ function Item(props) {
         {props.item.title}
       </Link>
       <div className={cn('actions')}>
-        <div className={cn('price')}>{numberFormat(props.item.price)} ₽</div>
-        <button onClick={callbacks.onAdd}>Добавить</button>
+        <div className={cn('price')}>{numberFormat(props.item.price)} {translate("валюта", props.lang)}</div>
+        <button onClick={callbacks.onAdd}>{translate("Добавить", props.lang)}</button>
       </div>
     </div>
   );
 }
 
 Item.propTypes = {
+  lang: PropTypes.string,
   item: PropTypes.shape({
     _id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
     title: PropTypes.string,

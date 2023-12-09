@@ -6,7 +6,9 @@
   padding: 20px;
   font-size: 18px;
 }
-
+.BasketTool-info {
+  display: flex;
+}
 .BasketTool-homeLink {
   color: #0087e9;
   font-family: Arial;

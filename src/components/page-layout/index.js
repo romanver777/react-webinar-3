@@ -1,9 +1,9 @@
-import {memo} from "react";
+import React, {memo} from "react";
 import PropTypes from "prop-types";
 import {cn as bem} from '@bem-react/classname';
 import './style.css';
 
-function PageLayout({head, footer, children}) {
+function PageLayout({lang, head, footer, children}) {
 
   const cn = bem('PageLayout');
 
@@ -13,7 +13,7 @@ function PageLayout({head, footer, children}) {
         {head}
       </div>
       <div className={cn('center')}>
-        {children}
+        {React.Children.map(children, (child) => React.cloneElement(child, {lang}))}
       </div>
       <div className={cn('footer')}>
         {footer}

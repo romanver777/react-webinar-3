@@ -1,3 +1,4 @@
+import dictionary from "./store/language/dictionary";
 /**
  * Плюрализация
  * Возвращает вариант с учётом правил множественного числа под указанную локаль
@@ -69,4 +70,15 @@ export function getPaginationNumbers(active, total){
   }
 
   return numbers;
+}
+
+/**
+ * Перевод интерфейса на другой язык
+ * @param value {String}
+ * @param lang {String}
+ * @param options {Object}
+ * @returns {String}
+ */
+export function translate(value, lang = "Ru", options = {}) {
+  return dictionary[lang][value.replace(/\s+/g, '')];
 }

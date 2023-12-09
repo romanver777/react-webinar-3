@@ -3,12 +3,13 @@ import { memo, useCallback, useEffect } from "react";
 import Item from "../../components/item";
 import PageLayout from "../../components/page-layout";
 import Head from "../../components/head";
+import Lang from "../../components/lang";
 import BasketTool from "../../components/basket-tool";
 import List from "../../components/list";
 import Pagination from "../../components/pagination";
 import useStore from "../../store/use-store";
 import useSelector from "../../store/use-selector";
-import { getPaginationNumbers } from "../../utils";
+import { getPaginationNumbers, translate } from "../../utils";
 
 function Main() {
   const store = useStore();
@@ -23,6 +24,7 @@ function Main() {
     sum: state.basket.sum,
     currentPage: state.catalog.page,
     totalPage: state.catalog.totalPage,
+    language: state.language.name,
   }));
 
   const callbacks = {
@@ -37,23 +39,27 @@ function Main() {
       [store]
     ),
     // Добавление текущего номера страницы
-    addPage: useCallback((page) => store.actions.catalog.addPage(page), [store])
+    addPage: useCallback((page) => store.actions.catalog.addPage(page), [store]),
+    // Установка языка
+    setLanguage: useCallback((name) => store.actions.language.setLanguage(name), [store]),
   };
 
   const renders = {
     item: useCallback(
       (item) => {
-        return <Item item={item} onAdd={callbacks.addToBasket} />;
+        return <Item lang={select.language} item={item} onAdd={callbacks.addToBasket} />;
       },
-      [callbacks.addToBasket]
+      [callbacks.addToBasket, select.language]
     ),
   };
 
-  if(!select.totalPage) return <div style={{"textAlign": "center", "color": "#fff"}}>Загружаем..</div>
+  if(!select.totalPage) return <div style={{"textAlign": "center", "color": "#fff"}}>{translate("Загружаем", select.language)}..</div>
 
   return (
-    <PageLayout>
-      <Head title="Магазин" />
+    <PageLayout lang={select.language}>
+      <Head title={translate("Магазин", select.language)}>
+        <Lang active={select.language} onSetLanguage={callbacks.setLanguage}/>
+      </Head>
       <BasketTool
         onOpen={callbacks.openModalBasket}
         amount={select.amount}
