@@ -1,0 +1,12 @@
+.Nav{
+  padding: 20px;
+}
+.Nav-link {
+    color: #0087e9;
+    font-family: Arial;
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    text-decoration-line: underline;
+  }

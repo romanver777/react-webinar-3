@@ -8,6 +8,8 @@
 }
 .Lang-item_active {
   color: #0087e9;
+  cursor: default;
+  pointer-events: none;
 }
 .Lang-item:hover {
   color: #0087e9;

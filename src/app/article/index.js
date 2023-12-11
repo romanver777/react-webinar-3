@@ -3,6 +3,9 @@ import { useParams } from 'react-router-dom';
 
 import PageLayout from "../../components/page-layout";
 import Head from "../../components/head";
+import Lang from '../../components/lang';
+import Menu from "../../components/menu";
+import Nav from "../../components/nav";
 import BasketTool from "../../components/basket-tool";
 import ArticleInfo from '../../components/article-info';
 import useStore from "../../store/use-store";
@@ -30,15 +33,22 @@ function Article() {
     addToBasket: useCallback(_id => store.actions.basket.addToBasket(_id), [store]),
     // Открытие модалки корзины
     openModalBasket: useCallback(() => store.actions.modals.open('basket'), [store]),
+    // Установка языка
+    setLanguage: useCallback((name) => store.actions.language.setLanguage(name), [store]),
   }
 
   if(!select.article || select.article._id != id) return <div style={{"textAlign": "center", "color": "#fff"}}>{translate("Загружаем", select.language)}..</div>
 
   return (
     <PageLayout lang={select.language}>
-      <Head title={select.article.title}/>
-      <BasketTool onOpen={callbacks.openModalBasket} amount={select.amount}
+      <Head title={select.article.title}>
+        <Lang active={select.language} onSetLanguage={callbacks.setLanguage}/>
+      </Head>
+      <Menu>
+        <Nav name="Главная" />
+        <BasketTool onOpen={callbacks.openModalBasket} amount={select.amount}
                   sum={select.sum}/>
+      </Menu>
       <ArticleInfo article={select.article} addToBasket={callbacks.addToBasket}/>
     </PageLayout>
 
