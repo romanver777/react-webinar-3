@@ -16,7 +16,7 @@ function Item(props) {
   return (
     <div className={cn()}>
       <Link 
-        to={`/article/${props.item._id}`} 
+        to={`${props.path}/${props.item._id}`} 
         className={cn('link')}
       >
         {props.item.title}
@@ -36,10 +36,12 @@ Item.propTypes = {
     title: PropTypes.string,
     price: PropTypes.number
   }).isRequired,
+  path: PropTypes.string,
   onAdd: PropTypes.func,
 };
 
 Item.defaultProps = {
+  path: "/article",
   onAdd: () => {},
 }
 
