@@ -1,3 +1,5 @@
+import { default as arrayToTree } from "array-to-tree";
+
 /**
  * Плюрализация
  * Возвращает вариант с учётом правил множественного числа под указанную локаль
@@ -7,13 +9,13 @@
  * @param [locale] {String} Локаль (код языка)
  * @returns {String}
  */
-export function plural(value, variants = {}, locale = 'ru-RU') {
+export function plural(value, variants = {}, locale = "ru-RU") {
   // Получаем фурму кодовой строкой: 'zero', 'one', 'two', 'few', 'many', 'other'
   // В русском языке 3 формы: 'one', 'few', 'many', и 'other' для дробных
   // В английском 2 формы: 'one', 'other'
   const key = new Intl.PluralRules(locale).select(value);
   // Возвращаем вариант по ключу, если он есть
-  return variants[key] || '';
+  return variants[key] || "";
 }
 
 /**
@@ -30,6 +32,41 @@ export function codeGenerator(start = 0) {
  * @param options {Object}
  * @returns {String}
  */
-export function numberFormat(value, locale = 'ru-RU', options = {}) {
+export function numberFormat(value, locale = "ru-RU", options = {}) {
   return new Intl.NumberFormat(locale, options).format(value);
+}
+
+/**
+ * Приведение списка категорий в нужный формат
+ * @param [items] {Array} Список категорий
+ * @returns {Array<Object>}
+ */
+export function getCategoriesList(items) {
+  const formattedList = items.map((it) => ({
+    ...it,
+    parent: it.parent == null ? it.parent : it.parent._id,
+  }));
+
+  const tree = arrayToTree(formattedList, {
+    parentProperty: "parent",
+    customID: "_id",
+  });
+
+  const list = [{ value: "", title: "Все" }];
+
+  setList(tree);
+
+  function setList(tree, level = 0) {
+    for (let obj of tree) {
+      list.push({
+        value: obj._id,
+        title: "- ".repeat(level) + obj.title,
+      });
+
+      if (obj.hasOwnProperty("children")) {
+        setList(obj.children, level + 1);
+      }
+    }
+  }
+  return list;
 }

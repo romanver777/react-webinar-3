@@ -1,5 +1,5 @@
-import { default as arrayToTree } from "array-to-tree";
 import StoreModule from "../module";
+import {getCategoriesList} from "../../utils";
 
 /**
  * Состояние списка категорий
@@ -38,46 +38,11 @@ class CategoryState extends StoreModule {
     this.setState(
       {
         ...this.getState(),
-        list: this.getCategoriesList(json.result.items),
+        list: getCategoriesList(json.result.items),
         waiting: false,
       },
       "Загружен список категорий из АПИ"
     );
-  }
-
-  /**
-   * Приведение списка категорий в нужный формат
-   * @param [items] {Array} Список категорий
-   * @returns {Promise<void>}
-   */
-  getCategoriesList(items) {
-    const formattedList = items.map((it) => ({
-      ...it,
-      parent: it.parent == null ? it.parent : it.parent._id,
-    }));
-
-    const tree = arrayToTree(formattedList, {
-      parentProperty: "parent",
-      customID: "_id",
-    });
-
-    const list = [{ value: "", title: "Все" }];
-
-    setList(tree);
-
-    function setList(tree, level = 0) {
-      for (let obj of tree) {
-        list.push({
-          value: obj._id,
-          title: "-".repeat(level) + obj.title,
-        });
-
-        if (obj.hasOwnProperty("children")) {
-          setList(obj.children, level + 1);
-        }
-      }
-    }
-    return list;
   }
 }
 
