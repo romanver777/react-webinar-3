@@ -1,0 +1,37 @@
+.LoginForm {
+  padding: 36px 20px;
+  font-size: 16px;
+  color: #000;
+  font-weight: 400;
+  font-family: Arial;
+  line-height: normal;
+  font-style: normal;
+}
+.LoginForm-title {
+  font-size: 24px;
+  font-weight: 700;
+  margin-bottom: 17px;
+}
+.LoginForm-item{
+  display: flex;
+  flex-direction: column;
+}
+.LoginForm-login {
+  margin-bottom: 17px;
+}
+.LoginForm-pass {
+  margin-bottom: 20px;
+}
+.LoginForm-form input {
+  width: 203px;
+  height: 26px;
+  padding: 3px 3px 5px;
+  border-radius: 1px;
+  border: 1px solid #767676;
+  background: #fff;
+  font-size: 14px;
+}
+.LoginForm-error {
+  margin-bottom: 19px;
+  color: #ff0000;
+}

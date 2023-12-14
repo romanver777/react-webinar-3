@@ -28,6 +28,9 @@
   padding: 20px;
 }
 
+.SideLayout_border_bottom {
+  border-bottom: 1px solid #dcdcdc;
+}
 .SideLayout-item {
   margin: 0 5px;
 }

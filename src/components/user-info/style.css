@@ -1,0 +1,20 @@
+.UserInfo {
+  padding: 36px 20px;
+  font-size: 18px;
+  color: #000;
+  font-weight: 400;
+  font-family: Arial;
+  line-height: normal;
+  font-style: normal;
+
+}
+.UserInfo-title {
+  font-size: 24px;
+  font-weight: 700;
+  margin-bottom: 30px;
+}
+.UserInfo-info{
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}

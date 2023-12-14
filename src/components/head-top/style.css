@@ -1,0 +1,19 @@
+.HeadTop {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 20px;
+  padding: 10px 20px;
+  font-size: 13px;
+  border-bottom: 1px solid #dcdcdc;
+}
+
+.HeadTop-link {
+  color: #0087e9;
+  font-family: Arial;
+  font-size: 13px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  text-decoration-line: underline;
+}
