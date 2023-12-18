@@ -1,4 +1,4 @@
-import {useCallback, useContext, useEffect, useState} from 'react';
+import {useEffect} from 'react';
 import {Routes, Route} from 'react-router-dom';
 import useSelector from "../hooks/use-selector";
 import useStore from "../hooks/use-store";
@@ -18,7 +18,7 @@ function App() {
   const activeModal = useSelector(state => state.modals.name);
 
   useEffect(() => {
-    store.actions.user.checkToken();
+    store.actions.session.checkAuth();
   }, []);
 
   return (

@@ -1,39 +1,29 @@
-import { memo, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
-import useStore from "../../hooks/use-store";
+import { memo } from "react";
+import { Navigate, useLocation } from "react-router-dom";
 import useSelector from "../../hooks/use-selector";
 import useTranslate from "../../hooks/use-translate";
+import useAuth from "../../hooks/use-auth";
 import PageLayout from "../../components/page-layout";
 import Head from "../../components/head";
 import Navigation from "../../containers/navigation";
 import LocaleSelect from "../../containers/locale-select";
-import HeadTop from "../../components/head-top";
+import HeadTop from "../../containers/head-top";
 import UserInfo from "../../components/user-info";
 import Spinner from "../../components/spinner";
 
 function Profile() {
-  const store = useStore();
-  const navigate = useNavigate();
-  const tk = localStorage.getItem("tk");
+  const location = useLocation();
+
+  const {error, waiting} = useAuth();
 
   const select = useSelector((state) => ({
-    error: state.user.tokenError,
     user: state.user.user,
-    waiting: state.user.waiting,
   }));
 
-  useEffect(() => {
-    store.actions.user.checkToken();
-  }, []);
-
-  useEffect(() => {
-    if (select.error || !tk) {
-      store.actions.user.logout();
-      navigate("/login");
-    }
-  }, [select.error, tk]);
-
   const { t } = useTranslate();
+
+  if(waiting) return <div style={{"color": "#fff", "textAlign": "center"}}>Waiting...</div>;
+  if(error) return <Navigate to="/login" state={{from: location}}/>;
 
   return (
     <PageLayout head={<HeadTop />}>
@@ -41,11 +31,11 @@ function Profile() {
         <LocaleSelect />
       </Head>
       <Navigation />
-      <Spinner active={select.waiting}>
+      <Spinner active={waiting}>
         <UserInfo
-          name={select.user.profile?.name}
-          phone={select.user.profile?.phone}
-          email={select.user.email}
+          name={select.user?.profile?.name}
+          phone={select.user?.profile?.phone}
+          email={select.user?.email}
           t={t}
         />
       </Spinner>

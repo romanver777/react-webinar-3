@@ -1,4 +1,4 @@
-import {memo, useCallback, useEffect, useMemo} from "react";
+import {memo, useCallback, useMemo} from "react";
 import useTranslate from "../../hooks/use-translate";
 import useStore from "../../hooks/use-store";
 import useSelector from "../../hooks/use-selector";
@@ -13,10 +13,6 @@ import Spinner from "../../components/spinner";
 function CatalogFilter() {
 
   const store = useStore();
-
-  useEffect(() => {
-    store.actions.category.setCategories();
-  }, []);
 
   const select = useSelector(state => ({
     sort: state.catalog.params.sort,
@@ -54,7 +50,7 @@ function CatalogFilter() {
         <Select options={select.categoryList} value={select.category} onChange={callbacks. onCategorySearch}/>
         <Select options={options.sort} value={select.sort} onChange={callbacks.onSort}/>
         <Input value={select.query} onChange={callbacks.onSearch} placeholder={'Поиск'}
-               delay={1000}/>
+               delay={1000} theme="big"/>
         <button onClick={callbacks.onReset}>{t('filter.reset')}</button>
       </SideLayout>
     </Spinner>

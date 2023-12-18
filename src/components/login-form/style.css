@@ -25,11 +25,12 @@
 .LoginForm-form input {
   width: 203px;
   height: 26px;
-  padding: 3px 3px 5px;
+  padding: 3px;
   border-radius: 1px;
   border: 1px solid #767676;
   background: #fff;
-  font-size: 14px;
+  font-size: 16px;
+  box-sizing: border-box;
 }
 .LoginForm-error {
   margin-bottom: 19px;
