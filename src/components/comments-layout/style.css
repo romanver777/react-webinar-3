@@ -1,0 +1,18 @@
+.CommentsLayout {
+  padding: 20px 40px;
+  color: #000;
+  font-family: Arial;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+}
+.CommentsLayout .List:first-child {
+  border: none;
+}
+.CommentsLayout .List-item {
+  border: none;
+  margin-bottom: 30px;
+}
+.CommentsLayout .List-item:last-child {
+  margin-bottom: 0;
+}

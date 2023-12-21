@@ -1,0 +1,39 @@
+.ItemComment {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  color: #000;
+  font-family: Arial;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+}
+.ItemComment-header{
+  display: flex;
+  justify-content: flex-start;
+  gap: 10px;
+}
+.ItemComment-name {
+  font-size: 12px;
+  font-weight: 700;
+}
+.ItemComment-name_colorLight {
+  color: #666;
+}
+.ItemComment-date {
+  color: #666;
+  font-size: 12px;
+}
+.ItemComment-text {
+  display: flex;
+  font-size: 14px;
+}
+.ItemComment-cell button {
+  color: #0087e9;
+  font-size: 12px;
+  background-color: transparent;
+  border: none;
+  margin: 0;
+  padding: 0;
+  cursor: pointer;
+}
