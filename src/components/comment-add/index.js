@@ -21,7 +21,7 @@ function CommentAdd(props) {
             to="/login"
             state={{ back: location.pathname }}
           >
-            Войдите
+            {props.t("comment.singin")}
           </Link>
           {!props.isAnswer ? (
             <span>, {props.t("comment.toComment")} </span>
