@@ -36,18 +36,21 @@ export default {
 
       try {
         const res = await services.api.request({
-          url: "/api/v1/comments",
+          url: `/api/v1/comments?fields=_id,text,dateCreate,author(_id,profile(name)),parent(_id,_type),isDeleted`,
           method: "POST",
           body: JSON.stringify(post),
         });
 
-        dispatch({ type: "comment/post-success" });
+        dispatch({
+          type: "comment/post-success",
+          payload: { data: res.data.result },
+        });
       } catch (e) {
         dispatch({ type: "comment/post-error" });
       }
     };
   },
-  
+
   postCommentAnswer: (value, parentId) => {
     return async (dispatch, getState, services) => {
       dispatch({ type: "comment/post-start" });
@@ -59,12 +62,15 @@ export default {
 
       try {
         const res = await services.api.request({
-          url: "/api/v1/comments",
+          url: `/api/v1/comments?fields=_id,text,dateCreate,author(_id,profile(name)),parent(_id,_type),isDeleted`,
           method: "POST",
           body: JSON.stringify(post),
         });
 
-        dispatch({ type: "comment/post-success" });
+        dispatch({
+          type: "comment/post-success",
+          payload: { data: res.data.result },
+        });
       } catch (e) {
         dispatch({ type: "comment/post-error" });
       }

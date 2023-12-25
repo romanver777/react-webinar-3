@@ -1,4 +1,4 @@
-import { memo, useCallback } from "react";
+import { memo, useCallback, useRef, useEffect } from "react";
 import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
 import { cn as bem } from "@bem-react/classname";
@@ -7,13 +7,28 @@ import "./style.css";
 
 function CommentAdd(props) {
   const cn = bem("CommentAdd");
+  const ref = useRef(null);
+
+  useEffect(() => {
+    if (!!ref.current && props.isOpen)
+      ref.current.scrollIntoView({ behavior: "smooth", block: "center" });
+  }, [props.isOpen]);
 
   const callbacks = {
     postComment: useCallback((e) => props.onPostComment(e, props.id), []),
   };
 
   return (
-    <div className={cn()}>
+    <div
+      ref={ref}
+      className={cn()}
+      style={{
+        marginLeft:
+          !props.isAnswer || props.level + 1 > props.maxCommentsLevel
+            ? "0px"
+            : "30px",
+      }}
+    >
       {!props.exists ? (
         <div className={cn("redirectText")}>
           <Link
@@ -46,10 +61,7 @@ function CommentAdd(props) {
                 : props.t("comment.new")
             }`}
           >
-            <textarea
-              className={cn("textarea")}
-              placeholder={props.t("comment.text")}
-            ></textarea>
+            <textarea className={cn("textarea")}></textarea>
           </Field>
           <div className={cn("cell")}>
             <button className={cn("btn")}>{props.t("comment.send")}</button>
@@ -72,7 +84,10 @@ function CommentAdd(props) {
 CommentAdd.propTypes = {
   id: PropTypes.string,
   exists: PropTypes.bool,
+  level: PropTypes.number,
+  maxCommentsLevel: PropTypes.number,
   isAnswer: PropTypes.bool,
+  isOpen: PropTypes.bool,
   onCloseForm: PropTypes.func,
   onPostComment: PropTypes.func,
   t: PropTypes.func,

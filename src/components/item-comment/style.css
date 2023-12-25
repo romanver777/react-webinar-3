@@ -27,6 +27,7 @@
 .ItemComment-text {
   display: flex;
   font-size: 14px;
+  word-break: break-all;
 }
 .ItemComment-cell button {
   color: #0087e9;
